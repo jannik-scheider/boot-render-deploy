@@ -14,7 +14,7 @@ public class BootRenderDeployApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BootRenderDeployApplication.class, args);
 	}
-
+	//test
 	@RestController
 	@RequestMapping("/")
 	static class HomeController {
