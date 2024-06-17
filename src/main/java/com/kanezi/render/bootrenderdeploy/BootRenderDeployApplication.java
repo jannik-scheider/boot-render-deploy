@@ -61,7 +61,7 @@ public class BootRenderDeployApplication {
 		public void testEndpoint(HttpServletResponse response) throws IOException {
 			LocalTime now = LocalTime.now();
 			LocalTime targetTime = LocalTime.of(14, 46);
-			if (now.getHour() == targetTime.getHour() && now.getMinute() == targetTime.getMinute()) {
+			if (now.getMinute() % 10 == 0 || now.getMinute() % 10 == 1){
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Simulated Error");
 			} else {
 				response.setStatus(HttpServletResponse.SC_OK);
