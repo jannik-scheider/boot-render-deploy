@@ -34,7 +34,15 @@ public class BootRenderDeployApplication {
 	static class HomeController {
 		@GetMapping
 		String showTimestamp() {
-			return LocalDateTime.now().toString();
+
+			LocalTime now = LocalTime.now();
+			LocalTime targetTime = LocalTime.of(14, 25);
+			if (now.getHour() == targetTime.getHour() && now.getMinute() == targetTime.getMinute()) {
+				return "true";
+			} else {
+				return "false";
+			}
+			//return LocalDateTime.now().toString();
 		}
 	}
 
@@ -52,7 +60,7 @@ public class BootRenderDeployApplication {
 		@GetMapping
 		public void testEndpoint(HttpServletResponse response) throws IOException {
 			LocalTime now = LocalTime.now();
-			LocalTime targetTime = LocalTime.of(16, 10);
+			LocalTime targetTime = LocalTime.of(14, 25);
 			if (now.getHour() == targetTime.getHour() && now.getMinute() == targetTime.getMinute()) {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Simulated Error");
 			} else {
