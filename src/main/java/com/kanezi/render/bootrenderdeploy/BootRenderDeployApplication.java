@@ -36,7 +36,7 @@ public class BootRenderDeployApplication {
 		String showTimestamp() {
 
 			LocalTime now = LocalTime.now();
-			LocalTime targetTime = LocalTime.of(14, 49);
+			LocalTime targetTime = LocalTime.of(14, 39);
 			if (now.getHour() == targetTime.getHour() && now.getMinute() == targetTime.getMinute()) {
 				return "true";
 			} else {
