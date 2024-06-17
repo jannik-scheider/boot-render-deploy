@@ -60,7 +60,7 @@ public class BootRenderDeployApplication {
 		@GetMapping
 		public void testEndpoint(HttpServletResponse response) throws IOException {
 			LocalTime now = LocalTime.now();
-			LocalTime targetTime = LocalTime.of(14, 49);
+			LocalTime targetTime = LocalTime.of(14, 39);
 			if (now.getHour() == targetTime.getHour() && now.getMinute() == targetTime.getMinute()) {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Simulated Error");
 			} else {
