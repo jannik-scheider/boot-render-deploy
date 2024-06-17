@@ -36,7 +36,7 @@ public class BootRenderDeployApplication {
 		String showTimestamp() {
 
 			LocalTime now = LocalTime.now();
-			LocalTime targetTime = LocalTime.of(14, 25);
+			LocalTime targetTime = LocalTime.of(14, 49);
 			if (now.getHour() == targetTime.getHour() && now.getMinute() == targetTime.getMinute()) {
 				return "true";
 			} else {
@@ -60,7 +60,7 @@ public class BootRenderDeployApplication {
 		@GetMapping
 		public void testEndpoint(HttpServletResponse response) throws IOException {
 			LocalTime now = LocalTime.now();
-			LocalTime targetTime = LocalTime.of(14, 25);
+			LocalTime targetTime = LocalTime.of(14, 49);
 			if (now.getHour() == targetTime.getHour() && now.getMinute() == targetTime.getMinute()) {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Simulated Error");
 			} else {
