@@ -1,5 +1,6 @@
 package com.kanezi.render.bootrenderdeploy;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.concurrent.ScheduledFuture;
 
 @SpringBootApplication
@@ -39,6 +42,24 @@ public class BootRenderDeployApplication {
 	@Bean
 	public ThreadPoolTaskScheduler taskScheduler() {
 		return new ThreadPoolTaskScheduler();
+	}
+
+	// New Test Controller
+	@RestController
+	@RequestMapping("/test")
+	static class TestController {
+
+		@GetMapping
+		public void testEndpoint(HttpServletResponse response) throws IOException {
+			LocalTime now = LocalTime.now();
+			LocalTime targetTime = LocalTime.of(15, 56);
+			if (now.equals(targetTime)) {
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Simulated Error");
+			} else {
+				response.setStatus(HttpServletResponse.SC_OK);
+				response.getWriter().write("OK");
+			}
+		}
 	}
 }
 
