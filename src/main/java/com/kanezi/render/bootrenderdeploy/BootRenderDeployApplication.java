@@ -61,7 +61,7 @@ public class BootRenderDeployApplication {
 		public void testEndpoint(HttpServletResponse response) throws IOException {
 			LocalTime now = LocalTime.now();
 			if (now.getMinute() % 10 == 0 || now.getMinute() % 10 < 4){
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Simulated Error");
+				throw new RuntimeException("Simulated Application Crash");
 			} else {
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.getWriter().write("OK");
