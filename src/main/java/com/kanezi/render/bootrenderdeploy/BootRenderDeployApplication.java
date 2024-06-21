@@ -61,7 +61,7 @@ public class BootRenderDeployApplication {
 		public void testEndpoint(HttpServletResponse response) throws IOException {
 			LocalTime now = LocalTime.now();
 			if (now.getMinute() % 10 == 0 || now.getMinute() % 10 < 4){
-				throw new RuntimeException("Simulated Application Crash");
+				System.exit(1); // Exit the application with status code 1
 			} else {
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.getWriter().write("OK");
