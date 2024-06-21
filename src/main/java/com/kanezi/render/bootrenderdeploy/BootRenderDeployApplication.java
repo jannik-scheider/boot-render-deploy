@@ -60,51 +60,12 @@ public class BootRenderDeployApplication {
 		@GetMapping
 		public void testEndpoint(HttpServletResponse response) throws IOException {
 			LocalTime now = LocalTime.now();
-			LocalTime targetTime = LocalTime.of(14, 46);
-			if (now.getMinute() % 10 == 0 || now.getMinute() % 10 == 1){
+			if (now.getMinute() % 10 == 0 || now.getMinute() % 10 < 4){
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Simulated Error");
 			} else {
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.getWriter().write("OK");
 			}
 		}
-	}
-}
-
-// Custom Health Indicator
-@Component
-class CustomHealthIndicator implements HealthIndicator {
-	private boolean isHealthy = true;
-
-	@Override
-	public Health health() {
-		if (isHealthy) {
-			return Health.up().build();
-		} else {
-			return Health.down().withDetail("Error", "Service is unhealthy").build();
-		}
-	}
-
-	public void setHealthy(boolean isHealthy) {
-		this.isHealthy = isHealthy;
-	}
-}
-
-// Scheduler to change health status
-@Component
-class HealthStatusScheduler {
-	private final CustomHealthIndicator healthIndicator;
-	private final ThreadPoolTaskScheduler taskScheduler;
-	private ScheduledFuture<?> scheduledTask;
-
-	public HealthStatusScheduler(CustomHealthIndicator healthIndicator, ThreadPoolTaskScheduler taskScheduler) {
-		this.healthIndicator = healthIndicator;
-		this.taskScheduler = taskScheduler;
-	}
-
-	@EventListener(ContextRefreshedEvent.class)
-	public void scheduleHealthChange() {
-		scheduledTask = taskScheduler.schedule(() -> healthIndicator.setHealthy(false),
-				new java.util.Date(System.currentTimeMillis() + 60000)); // 60000 ms = 1 minute
 	}
 }
